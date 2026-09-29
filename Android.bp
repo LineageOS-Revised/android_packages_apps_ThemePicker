@@ -73,6 +73,7 @@ android_library {
         "androidx.recyclerview_recyclerview",
         "SystemUICustomizationLib",
         "hilt_android",
+        "org.lineageos.platform.internal",
         // Compose
         "PlatformComposeCore",
         "androidx.activity_activity-compose",

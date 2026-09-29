@@ -17,6 +17,7 @@
 package com.android.wallpaper.customization.ui.util
 
 import android.content.Context
+import android.content.Intent
 import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
@@ -24,8 +25,12 @@ import android.view.ViewGroup
 import android.view.ViewStub
 import android.widget.FrameLayout
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.compose.ui.platform.ComposeView
 import com.android.customization.picker.mode.shared.util.DarkModeLifecycleUtil
+import com.android.customization.picker.udfpsanim.UdfpsAnimationCustomizationOption.FINGERPRINT_ANIMATION
+import com.android.customization.picker.udfpsanim.UdfpsAnimationHelper
+import com.android.customization.picker.udfpsanim.UdfpsAnimationPickerActivity
 import com.android.themepicker.R
 import com.android.wallpaper.config.BaseFlags
 import com.android.wallpaper.customization.ui.util.ThemePickerCustomizationOptionUtil.ThemePickerHomeCustomizationOption.APP_ICONS
@@ -105,6 +110,33 @@ constructor(
                                 false,
                             )
                     )
+                    if (UdfpsAnimationHelper.isSupported) {
+                        add(
+                            FINGERPRINT_ANIMATION to
+                                layoutInflater
+                                    .inflate(
+                                        R.layout.customization_option_entry_fingerprint,
+                                        optionContainer,
+                                        false,
+                                    )
+                                    .also { entry ->
+                                        entry
+                                            .findViewById<TextView>(
+                                                R.id.option_entry_description
+                                            )
+                                            ?.text =
+                                            UdfpsAnimationHelper.getActiveName(context)
+                                        entry.setOnClickListener {
+                                            context.startActivity(
+                                                Intent(
+                                                    context,
+                                                    UdfpsAnimationPickerActivity::class.java,
+                                                )
+                                            )
+                                        }
+                                    }
+                        )
+                    }
                     if (isKeyguardQuickAffordanceEnabled) {
                         add(
                             SHORTCUTS to

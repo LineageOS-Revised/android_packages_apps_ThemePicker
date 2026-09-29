@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (C) 2026 The LineageOS Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingVertical="@dimen/customization_toolbar_vertical_padding">
+
+        <FrameLayout
+            android:id="@+id/udfps_animation_back"
+            android:layout_width="@dimen/nav_button_width"
+            android:layout_height="@dimen/nav_button_height"
+            android:layout_marginStart="@dimen/nav_button_start_margin"
+            android:contentDescription="@string/udfps_animation_back">
+
+            <View
+                android:id="@+id/udfps_animation_back_icon"
+                android:layout_width="@dimen/nav_button_background_size"
+                android:layout_height="@dimen/nav_button_background_size"
+                android:layout_gravity="center"
+                android:background="@drawable/nav_button_background"
+                android:foreground="@drawable/ic_arrow_back_24dp"
+                android:foregroundGravity="center"/>
+        </FrameLayout>
+
+        <Toolbar
+            android:id="@+id/udfps_animation_toolbar"
+            style="@style/ToolbarTheme"
+            android:layout_width="0dp"
+            android:layout_height="?android:attr/actionBarSize"
+            android:layout_gravity="top"
+            android:layout_weight="1"
+            android:importantForAccessibility="yes"/>
+
+        <com.android.wallpaper.picker.customization.ui.view.ApplyButton
+            android:id="@+id/udfps_animation_apply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/apply_button_end_margin"/>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="@dimen/floating_sheet_horizontal_padding"
+        android:layout_marginTop="@dimen/floating_sheet_content_vertical_padding"
+        android:layout_weight="1"
+        android:background="@drawable/floating_sheet_content_background"
+        android:clipChildren="false">
+
+        <ImageView
+            android:id="@+id/udfps_animation_preview_icon"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_gravity="center"
+            android:importantForAccessibility="no"/>
+
+        <VideoView
+            android:id="@+id/udfps_animation_preview"
+            android:layout_width="240dp"
+            android:layout_height="240dp"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/udfps_animation_selected_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="?android:attr/textColorPrimary"/>
+
+    <TextView
+        android:id="@+id/udfps_animation_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/system_on_surface_variant"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/udfps_animation_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/floating_sheet_horizontal_padding"
+        android:paddingVertical="12dp"/>
+</LinearLayout>

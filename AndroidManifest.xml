@@ -11,6 +11,8 @@
     <uses-sdk android:targetSdkVersion="30" android:minSdkVersion="28"/>
 
     <uses-permission android:name="android.permission.CHANGE_OVERLAY_PACKAGES"/>
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
+    <uses-permission android:name="lineageos.permission.WRITE_SECURE_SETTINGS"/>
     <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS"/>
     <uses-permission android:name="android.permission.SET_WALLPAPER_COMPONENT" />
     <uses-permission android:name="android.permission.READ_DEVICE_CONFIG" />
@@ -101,6 +103,12 @@
             android:label="@string/app_name"
             android:relinquishTaskIdentity="true"
             android:resizeableActivity="false"
+            android:theme="@style/CustomizationTheme.NoActionBar"
+            android:exported="false"/>
+
+        <activity
+            android:name="com.android.customization.picker.udfpsanim.UdfpsAnimationPickerActivity"
+            android:label="@string/udfps_animation_title"
             android:theme="@style/CustomizationTheme.NoActionBar"
             android:exported="false"/>
 

@@ -54,6 +54,8 @@ import com.android.customization.picker.icon.ui.util.IconStyleViewUtil
 import com.android.customization.picker.quickaffordance.ui.binder.ShortcutFloatingSheetBinder
 import com.android.customization.picker.quickaffordance.ui.compose.ShortcutsFloatingSheet
 import com.android.customization.picker.settings.ui.binder.ColorContrastSectionViewBinder2
+import com.android.customization.picker.udfpsanim.UdfpsAnimationCustomizationOption
+import com.android.customization.picker.udfpsanim.UdfpsAnimationHelper
 import com.android.systemui.plugins.keyguard.ui.clocks.ClockAxisStyle
 import com.android.themepicker.R
 import com.android.wallpaper.config.BaseFlags
@@ -320,6 +322,15 @@ constructor(private val defaultCustomizationOptionsBinder: DefaultCustomizationO
 
         lifecycleOwner.lifecycleScope.launch {
             lifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                // Refresh the summary each time we return to this screen (e.g. from the picker).
+                lockScreenCustomizationOptionEntries
+                    .firstOrNull {
+                        it.first == UdfpsAnimationCustomizationOption.FINGERPRINT_ANIMATION
+                    }
+                    ?.second
+                    ?.findViewById<TextView>(R.id.option_entry_description)
+                    ?.text = UdfpsAnimationHelper.getActiveName(view.context)
+
                 launch {
                     optionsViewModel.onCustomizeClockClicked.collect {
                         optionClock.setOnClickListener { _ -> it?.invoke() }
