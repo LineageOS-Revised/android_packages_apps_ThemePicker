@@ -21,11 +21,13 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowInsets
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import android.widget.Toolbar
 import android.widget.VideoView
+import androidx.core.graphics.ColorUtils
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.themepicker.R
@@ -50,11 +52,17 @@ class UdfpsAnimationPickerActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_udfps_animation_picker)
 
+        findViewById<View>(R.id.udfps_animation_root).setOnApplyWindowInsetsListener { view, insets ->
+            val bars =
+                insets.getInsets(WindowInsets.Type.systemBars() or WindowInsets.Type.displayCutout())
+            view.setPadding(bars.left, bars.top, bars.right, bars.bottom)
+            WindowInsets.CONSUMED
+        }
+
         findViewById<View>(R.id.udfps_animation_back).setOnClickListener { finish() }
         applyButton = findViewById<ApplyButton>(R.id.udfps_animation_apply).apply {
             setApplyButtonBackgroundColor(getColor(WallpaperR.color.system_primary))
-            setApplyButtonTextColor(getColor(WallpaperR.color.system_on_primary))
-            setApplyButtonState(ApplyButton.ApplyButtonState.APPLY_BUTTON_ENABLED)
+            setIndicatorColor(getColor(WallpaperR.color.system_on_primary))
             setOnClickListener { applySelection() }
         }
         findViewById<Toolbar>(R.id.udfps_animation_toolbar).title =
@@ -79,6 +87,8 @@ class UdfpsAnimationPickerActivity : Activity() {
             layoutManager =
                 LinearLayoutManager(this@UdfpsAnimationPickerActivity, LinearLayoutManager.HORIZONTAL, false)
             adapter = this@UdfpsAnimationPickerActivity.adapter
+            val selectedIndex = options.indexOfFirst { it.packageName == selectedPackage }
+            if (selectedIndex > 0) scrollToPosition(selectedIndex)
         }
     }
 
@@ -126,7 +136,20 @@ class UdfpsAnimationPickerActivity : Activity() {
     private fun updateSelectionUi() {
         val isActive = selectedPackage == appliedPackage
         statusView.text = if (isActive) getString(R.string.udfps_animation_active) else ""
-        applyButton.visibility = if (isActive) View.GONE else View.VISIBLE
+        applyButton.setApplyButtonState(
+            if (isActive) {
+                ApplyButton.ApplyButtonState.APPLY_BUTTON_DISABLED
+            } else {
+                ApplyButton.ApplyButtonState.APPLY_BUTTON_ENABLED
+            }
+        )
+        applyButton.setApplyButtonTextColor(
+            if (isActive) {
+                ColorUtils.setAlphaComponent(getColor(WallpaperR.color.system_on_surface), 97)
+            } else {
+                getColor(WallpaperR.color.system_on_primary)
+            }
+        )
     }
 
     private fun showPreview(packageName: String) {

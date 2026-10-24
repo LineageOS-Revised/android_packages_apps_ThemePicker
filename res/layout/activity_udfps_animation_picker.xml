@@ -14,8 +14,10 @@
   ~ limitations under the License.
   -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/udfps_animation_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/system_surface_container"
     android:orientation="vertical">
 
     <LinearLayout
@@ -38,8 +40,10 @@
                 android:layout_height="@dimen/nav_button_background_size"
                 android:layout_gravity="center"
                 android:background="@drawable/nav_button_background"
-                android:foreground="@drawable/ic_arrow_back_24dp"
-                android:foregroundGravity="center"/>
+                android:backgroundTint="@color/system_surface_container_highest"
+                android:foreground="@drawable/ic_close_24dp"
+                android:foregroundGravity="center"
+                android:foregroundTint="@color/system_on_surface_variant"/>
         </FrameLayout>
 
         <Toolbar
@@ -49,13 +53,15 @@
             android:layout_height="?android:attr/actionBarSize"
             android:layout_gravity="top"
             android:layout_weight="1"
-            android:importantForAccessibility="yes"/>
+            android:importantForAccessibility="yes"
+            android:titleTextColor="@color/system_on_surface"/>
 
         <com.android.wallpaper.picker.customization.ui.view.ApplyButton
             android:id="@+id/udfps_animation_apply"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/apply_button_end_margin"/>
+            android:layout_marginEnd="@dimen/apply_button_end_margin"
+            android:minHeight="@dimen/touch_target_min_height"/>
     </LinearLayout>
 
     <FrameLayout
@@ -64,20 +70,22 @@
         android:layout_marginHorizontal="@dimen/floating_sheet_horizontal_padding"
         android:layout_marginTop="@dimen/floating_sheet_content_vertical_padding"
         android:layout_weight="1"
-        android:background="@drawable/floating_sheet_content_background"
-        android:clipChildren="false">
+        android:background="@drawable/udfps_animation_preview_bg"
+        android:clipToOutline="true">
 
         <ImageView
             android:id="@+id/udfps_animation_preview_icon"
             android:layout_width="96dp"
             android:layout_height="96dp"
             android:layout_gravity="center"
-            android:importantForAccessibility="no"/>
+            android:importantForAccessibility="no"
+            android:tint="@android:color/white"/>
 
         <VideoView
             android:id="@+id/udfps_animation_preview"
-            android:layout_width="240dp"
-            android:layout_height="240dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/udfps_animation_preview_radius"
             android:layout_gravity="center"
             android:visibility="gone"/>
     </FrameLayout>
