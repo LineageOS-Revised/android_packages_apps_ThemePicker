@@ -93,7 +93,7 @@ object UdfpsAnimationHelper {
                 name = context.getString(R.string.udfps_animation_default),
                 order = Int.MIN_VALUE,
                 previewIcon = context.getDrawable(R.drawable.ic_udfps_animation),
-                previewVideo = R.raw.udfps_default,
+                previewVideo = 0,
                 previewSound = 0,
             )
         )
